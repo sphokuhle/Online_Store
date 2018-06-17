@@ -16,7 +16,7 @@ Public Class CheckoutPage
 
                 Display.Text &= "<table width='100%'><tr><td>Tel : (011) 245 4478<br/> " &
                                 "Fax : (011) 245 1478 <br/> " &
-                                "E-mail : WolfPackAuto@info.com <br/> " &
+                                "E-mail : CarCaptainAuto@info.com <br/> " &
                                 "<b><u>Physical Address</u></b><br/> 153 Koma Road <br /> Jabulani, Johannesburg Gauteng <br />South Africa <br />2109</li></td></tr></table>"
                 Display.Text &= "<table  border='1px' width='100%'> <tr><td><b>" &
                                            "Product Image" & "</td><td><b>" & "Product Name" & "</b></td><td><b>" & "Product Quantity" & "</b></td><td><b>" & "Product Price" & "</b></td><td><b>" & "Total Price" & "</b></td></tr>"
@@ -52,11 +52,11 @@ Public Class CheckoutPage
         Dim Connection As SqlConnection
         Dim Command As SqlCommand
 
-        Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\CarCaptain Autospares.mdf&quot;;Integrated Security=True")
+        Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
 
         Dim refNumber As String = "REF" & New Random().Next.ToString
         Dim CommandString As String
-        CommandString = "INSERT INTO [Invoice] VALUES('" & refNumber & "','" & DateTime.Now.ToString("G") & "','" & Request.Cookies("UserIDCookie").Value & "');"
+        CommandString = "INSERT INTO [Invoice] VALUES('" & refNumber & "','" & DateTime.Now & "','" & Convert.ToInt32(Request.Cookies("UserIDCookie").Value) & "');"
 
         Command = New SqlCommand(CommandString)
         Command.CommandType = CommandType.Text
@@ -84,7 +84,7 @@ Public Class CheckoutPage
             insert.CommandType = CommandType.Text
             insert.Connection = Connection
             insert.Connection.Open()
-            insert.CommandText = "INSERT INTO [InvoiceProduct](Invoice_ID, P_Id, ProductQuantity, BuyingPrice) VALUES(" & InvoiceID & "," & Product.P_Id & "," & Product.Quantity & "," & Product.Price & ");"
+            insert.CommandText = "INSERT INTO [InvoiceProduct](Invoice_ID, P_Id, ProductQuantity, BuyingPrice) VALUES(" & Convert.ToInt32(InvoiceID) & "," & Product.P_Id & "," & Product.Quantity & "," & Product.Price & ");"
             insert.ExecuteNonQuery()
             insert.Connection.Close()
         Next
@@ -96,10 +96,10 @@ Public Class CheckoutPage
             Dim Connection As SqlConnection
             Dim Command As SqlCommand
 
-            Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\CarCaptain Autospares.mdf&quot;;Integrated Security=True")
+            Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
 
             Dim CommandString As String
-            CommandString = "UPDATE [Products]SET Quantity =" & QuantityInDataBase() - Product.Quantity & " WHERE P_ID ='" & pro2Remove & "';"
+            CommandString = "UPDATE [Product]SET Quantity =" & QuantityInDataBase() - Product.Quantity & " WHERE P_ID ='" & pro2Remove & "';"
             Command = New SqlCommand(CommandString)
             Command.CommandType = CommandType.Text
             Command.Connection = Connection
@@ -118,8 +118,8 @@ Public Class CheckoutPage
         Dim reader As SqlDataReader
         Dim QUANT As Integer
         Dim CommandString As String
-        Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\CarCaptain Autospares.mdf&quot;;Integrated Security=True")
-        CommandString = "SELECT Quantity FROM [Products] WHERE P_Id='" & pro2Remove & "';"
+        Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
+        CommandString = "SELECT Quantity FROM [Product] WHERE P_Id='" & pro2Remove & "';"
         Command = New SqlCommand(CommandString)
         Command.CommandType = CommandType.Text
         Command.Connection = Connection
@@ -141,10 +141,10 @@ Public Class CheckoutPage
         Dim Connection As SqlConnection
         Dim Command As SqlCommand
 
-        Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\CarCaptain Autospares.mdf&quot;;Integrated Security=True")
+        Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
 
         Dim CommandString As String
-        CommandString = "Select * FROM Products WHERE P_Id='" & P_Id & "';"
+        CommandString = "Select * FROM Product WHERE P_Id='" & P_Id & "';"
 
         Command = New SqlCommand(CommandString)
         Command.CommandType = CommandType.Text

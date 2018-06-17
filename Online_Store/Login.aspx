@@ -20,7 +20,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
      <br />
-    <img width="150" height ="100" src="App_Media1/login.png" />
+    <img width="150" height ="100" src="App_Media/login.png" />
 
      <table class="auto-style3">
     <tr>

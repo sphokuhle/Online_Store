@@ -10,7 +10,7 @@
      I have worked on projects that used the following technologies: Java, Javascript, C#, VB.Net, CSS 3, HTML 5, MS SQL, SQL Server and many more
      I have developed this small web application system that allow car owners to purchase car parts online instead of physically going to the store.
      Sometimes you go to the store and you do not find what you are looking for after you have already travelled which is where this system comes in.
-     For more information please look down below.
+     For more information please look below.
     <br/> 
     <br/>
     <img  src="App_Media/contactUs.jpg" />

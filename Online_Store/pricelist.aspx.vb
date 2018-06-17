@@ -13,8 +13,8 @@ Public Class pricelist
         If Not Page.IsPostBack Then
 
 
-            Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\CarCaptain Autospares.mdf&quot;;Integrated Security=True")
-            CommandString = "Select * From [Products] ORDER BY Price "
+            Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
+            CommandString = "Select * From [Product] ORDER BY Price "
 
             Command = New SqlCommand(CommandString)
 

@@ -11,8 +11,8 @@ Public Class CustomerPurchaseHistory
 
 
 
-        connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\CarCaptain Autospares.mdf&quot;;Integrated Security=True")
-        commandstring = "SELECT * FROM [Invoice] INNER JOIN ([Products] INNER JOIN [InvoiceProduct] ON [Products].P_Id =[InvoiceProduct].P_Id) ON [InvoiceProduct].Invoice_ID=[Invoice].Invoice_ID"
+        connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
+        commandstring = "SELECT * FROM [Invoice] INNER JOIN ([Product] INNER JOIN [InvoiceProduct] ON [Product].P_Id =[InvoiceProduct].P_Id) ON [InvoiceProduct].Invoice_ID=[Invoice].Invoice_ID"
         command = New SqlCommand(commandstring)
         command.CommandType = CommandType.Text
         command.Connection = connection

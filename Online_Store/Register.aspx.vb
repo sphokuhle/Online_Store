@@ -24,7 +24,7 @@ Public Class Register
             If counter = 0 Then
                 us.FName = txtname.Text
                 us.Password = Secrecy.HashPassword(txtpassword.Text)
-                us.Level = 2
+                us.Level = 1
                 us.Username = txtusername.Text
                 us.Surname = txtsurname.Text
                 us.Email = txtEmail.Text

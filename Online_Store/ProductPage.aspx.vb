@@ -14,8 +14,8 @@ Public Class ProductPage
         If Not Page.IsPostBack Then
 
             Prod_ID = Request.QueryString("P_Id").ToString()
-            Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\CarCaptain Autospares.mdf&quot;;Integrated Security=True")
-            CommandString = "Select * From [Products] where P_Id=" & Prod_ID & ";"
+            Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
+            CommandString = "Select * From [Product] where P_Id=" & Prod_ID & ";"
 
             Command = New SqlCommand(CommandString)
 

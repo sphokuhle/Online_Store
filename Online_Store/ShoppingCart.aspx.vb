@@ -29,10 +29,10 @@ Public Class ShoppingCart
                 Dim Command As SqlCommand
                 Dim Reader As SqlDataReader
 
-                Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\CarCaptain Autospares.mdf&quot;;Integrated Security=True")
+                Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
 
                 Dim CommandString As String
-                CommandString = "Select * FROM Products WHERE P_Id=" & PValue & ";"
+                CommandString = "Select * FROM Product WHERE P_Id=" & PValue & ";"
 
                 Command = New SqlCommand(CommandString)
                 Command.CommandType = CommandType.Text
@@ -77,7 +77,7 @@ Public Class ShoppingCart
                     Connection = New SqlConnection("Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|WolfPack Auto Spares.mdf;Integrated Security=True")
 
                     Dim CommandString As String
-                    CommandString = "Select * FROM Products WHERE P_Id=" & Value & ";"
+                    CommandString = "Select * FROM Product WHERE P_Id=" & Value & ";"
 
                     Command = New SqlCommand(CommandString)
                     Command.CommandType = CommandType.Text

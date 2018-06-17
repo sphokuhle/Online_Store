@@ -4,10 +4,10 @@ Imports System.IO
 
 Public Class AddProduct
     Inherits System.Web.UI.Page
-
+    Private SUBFOLDER As String = "Product_Images"
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Session("username") Is Nothing Then
-            Response.Redirect("login.aspx")
+            Response.Redirect("Login.aspx")
         End If
     End Sub
 
@@ -15,33 +15,19 @@ Public Class AddProduct
         Dim db As dbTablesDataContext = New dbTablesDataContext()
         Dim imageLoc As String = ""
         Try
+            Dim userid As Integer = Convert.ToInt32(Session("userId"))
+            makeDirectory(userid.ToString)
+            imageLoc = uploadImage(txtImageUploadAdd, userid, SUBFOLDER)
             Dim p As Product = New Product
-            Dim id As Integer = 0
-            Dim Connection As SqlConnection
-            Dim Command As SqlCommand
-            Dim CommandString As String
-
             p.Name = txtName.Text
             p.Quantity = txtQuantity.Text
             p.Price = txtPrice.Text
-            p.ImgLocation = ""  '"""" & "/App_Media/" & txtImageUploadAdd.FileName & """"
+            p.ShortDescription = txtShortDesc.Text
+            p.LongDescription = txtFulDesc.Text
+            p.User_ID = userid
+            p.ImgLocation = """" & "/Products/" & userid.ToString & "/" & SUBFOLDER & "/" & imageLoc & """"  '"""" & "/App_Media/" & txtImageUploadAdd.FileName & """"
             db.Products.InsertOnSubmit(p)
             db.SubmitChanges()
-
-            id = p.P_Id
-            imageLoc = uploadImage(txtImageUploadAdd, id, "Products_Images")
-
-            Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\CarCaptain Autospares.mdf&quot;;Integrated Security=True")
-            CommandString = "UPDATE [Products] SET ImgLocation='" & imageLoc & "' WHERE P_Id=" & id & ";"
-
-            Command = New SqlCommand(CommandString)
-            Command.CommandType = CommandType.Text
-            Command.Connection = Connection
-
-            Command.Connection.Open()
-            Command.ExecuteNonQuery()
-            Command.Connection.Close()
-
 
             Response.Redirect("ProductList.aspx")
 
@@ -56,13 +42,13 @@ Public Class AddProduct
 
             Try
                 Dim filename As String = Path.GetFileName(fileToUpload.FileName)
-                Dim serverLocation As String = "~/Products/" + ID + "/" + subfolder + "/" + filename
+                Dim serverLocation As String = "~/Products/" & ID & "/" & subfolder & "/" + filename
                 Dim SaveLoc As String = Server.MapPath(serverLocation)
                 Dim fileSize As Integer = fileToUpload.PostedFile.ContentLength
                 Dim fileExtention As String = Path.GetExtension(fileToUpload.FileName)
                 If ((fileExtention.ToLower() = ".jpg") Or (fileExtention.ToLower() = ".png") Or (fileExtention.ToLower() = ".jpeg") And fileSize <= 15728640) Then
                     fileToUpload.SaveAs(SaveLoc) 'saving the image
-                    Return "Online_Store/Online_Store/Products/" & ID & "/" & subfolder & "/" & filename
+                    Return filename  '"Online_Store/Online_Store/Products/" & ID & "/" & subfolder & "/" &
                 Else
                     Return "File Chosen Is Not an Image"
                 End If
@@ -75,14 +61,15 @@ Public Class AddProduct
         Return Nothing
     End Function
 
-    Protected Sub makeDirectory(ByVal productId As String)
+    Protected Sub makeDirectory(ByVal userId As String)
 
-        Dim directoryPath As String = Server.MapPath(String.Format("~/{0}/", "Products/" + productId))
-        If (Directory.Exists(directoryPath)) Then
+        Dim directoryPath As String = Server.MapPath(String.Format("~/{0}/", "Products/" + userId))
+        If (Directory.Exists(directoryPath) = False) Then
             Directory.CreateDirectory(directoryPath)
             Directory.CreateDirectory(Path.Combine(directoryPath, "Product_Images"))
         Else
-            ClientScript.RegisterStartupScript(Me.GetType(), "alert", "alert('Directory already exists.');", True)
+            'Do Nothing
+            'ClientScript.RegisterStartupScript(Me.GetType(), "alert", "alert('Directory already exists.');", True)
         End If
 
     End Sub

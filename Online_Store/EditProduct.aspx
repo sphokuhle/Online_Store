@@ -34,11 +34,9 @@
                 <asp:FileUpload ID="txtImageUploadAdd" runat="server" Width="275px" />
             </td>
             <td class="auto-style3">
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="Enter product image" ControlToValidate="txtImageUploadAdd" ForeColor="Red"></asp:RequiredFieldValidator>
-
-                </td>
-            <td>
-                &nbsp;</td>
+                &nbsp;
+            </td>
+            <td> &nbsp;</td>
         </tr>
         <tr>
             <td class="auto-style2">
@@ -79,6 +77,32 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Enter number of products available" ControlToValidate="txtQuantity" ForeColor="Red"></asp:RequiredFieldValidator>
 
                 </td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style2">
+                <asp:Label ID="Label5" runat="server" Text="Short Description"></asp:Label>
+            </td>
+            <td class="auto-style4">
+                <asp:TextBox ID="txtShortDesc" runat="server" Width="180px"></asp:TextBox>
+            </td>
+            <td class="auto-style3">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Enter a short product description" ControlToValidate="txtShortDesc" ForeColor="Red"></asp:RequiredFieldValidator>
+             </td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="auto-style2">
+                <asp:Label ID="Label6" runat="server" Text="Full Description"></asp:Label>
+            </td>
+            <td class="auto-style4">
+                <asp:TextBox ID="txtFulDesc" runat="server" Width="180px"></asp:TextBox>
+            </td>
+            <td class="auto-style3">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Enter a complete product description" ControlToValidate="txtFulDesc" ForeColor="Red"></asp:RequiredFieldValidator>
+             </td>
             <td>
                 &nbsp;</td>
         </tr>

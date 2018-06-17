@@ -15,7 +15,7 @@ Public Class Login
         Dim tempusername As String = txtUser.Text
         Dim temppassword As String = txtPass.Text
 
-        connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\CarCaptain Autospares.mdf&quot;;Integrated Security=True")
+        connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
 
         Dim commandstring As String
         commandstring = "SELECT * FROM [User] WHERE username ='" & tempusername & "';"
@@ -41,6 +41,7 @@ Public Class Login
 
                 Session.Add("username", reader("username"))
                 Session.Add("level", reader("level"))
+                Session.Add("userId", reader("UserId"))
 
             Loop
             Response.Redirect("productlist.aspx")

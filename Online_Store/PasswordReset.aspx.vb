@@ -24,7 +24,7 @@ Public Class PasswordReset
         valid(tempusername, temppassword)
 
         If (check = "correct") Then
-            connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\CarCaptain Autospares.mdf&quot;;Integrated Security=True")
+            connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
             commandstring = "UPDATE [User] SET Password='" & NewHashedpassword & "' WHERE Username ='" & tempusername & "'  AND Password ='" & Hashedpassword & "' "
             command = New SqlCommand(commandstring)
             command.CommandType = CommandType.Text
@@ -53,7 +53,7 @@ Public Class PasswordReset
         Dim commandstring As String
         Dim reader As SqlDataReader
 
-        connection = New SqlConnection("Data Source=(LocalDB)\v11.0;AttachDbFilename=|datadirectory|WolfPack Auto Spares.mdf;Integrated Security=True")
+        connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
         commandstring = "SELECT * FROM [User] WHERE Username='" & name & "'"
         command = New SqlCommand(commandstring)
         command.CommandType = CommandType.Text

@@ -18,7 +18,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <img src="App_Media1/register.jpg" />
+    <img src="App_Media/register.jpg" />
      <table class="auto-style2">
         <tr>
             <td class="auto-style3"><asp:Label ID="Label" runat="server" Text="Name"></asp:Label></td>

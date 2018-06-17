@@ -15,10 +15,10 @@ Public Class DeleteProduct
             Dim Connection As SqlConnection
             Dim Command As SqlCommand
 
-            Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\CarCaptain Autospares.mdf&quot;;Integrated Security=True")
+            Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
 
             Dim CommandString As String
-            CommandString = "DELETE FROM [Products] WHERE P_Id =" & SelectedProductID & ";"
+            CommandString = "DELETE FROM [Product] WHERE P_Id =" & SelectedProductID & ";"
 
             Command = New SqlCommand(CommandString)
             Command.CommandType = CommandType.Text

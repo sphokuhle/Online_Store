@@ -79,8 +79,29 @@
             </td>
             <td class="auto-style3">
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Enter number of products available" ControlToValidate="txtQuantity" ForeColor="Red"></asp:RequiredFieldValidator>
-
-                </td>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style2">
+                <asp:Label ID="Label5" runat="server" Text="Short Description"></asp:Label>
+            </td>
+            <td class="auto-style4">
+                <asp:TextBox ID="txtShortDesc" runat="server" Width="180px" TextMode="SingleLine"></asp:TextBox>
+            </td>
+            <td class="auto-style3">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Enter A description of the product" ControlToValidate="txtShortDesc" ForeColor="Red"></asp:RequiredFieldValidator>
+            </td>
+        </tr>
+        <tr>
+            <td class="auto-style2">
+                <asp:Label ID="Label6" runat="server" Text="Full Description"></asp:Label>
+            </td>
+            <td class="auto-style4">
+                <asp:TextBox ID="txtFulDesc" runat="server" Width="180px" TextMode="MultiLine"></asp:TextBox>
+            </td>
+            <td class="auto-style3">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Enter A full description of the product" ControlToValidate="txtFulDesc" ForeColor="Red"></asp:RequiredFieldValidator>
+            </td>
         </tr>
         <tr>
             <td class="auto-style2">

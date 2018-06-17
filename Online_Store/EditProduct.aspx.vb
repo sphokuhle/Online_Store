@@ -18,8 +18,8 @@ Public Class EditProduct
 
 
                 Prod_ID = Request.QueryString("P_Id").ToString()
-                Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\CarCaptain Autospares.mdf&quot;;Integrated Security=True")
-                Dim CommandString As String = "Select * From [Products] where P_Id=" & Prod_ID & ";"
+                Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
+                Dim CommandString As String = "Select * From [Product] where P_Id=" & Prod_ID & ";"
 
                 Command = New SqlCommand(CommandString)
 
@@ -39,6 +39,7 @@ Public Class EditProduct
                         txtName.Text = Reader("Name")
                         txtPrice.Text = Reader("Price")
                         txtQuantity.Text = Reader("Quantity")
+
                         imgLoc = Reader("ImgLocation")
                     Loop
                 End If
@@ -56,15 +57,15 @@ Public Class EditProduct
             Dim SelectedProductID As Integer = CInt(Request.QueryString("P_Id").ToString())
             Dim Connection As SqlConnection
             Dim Command As SqlCommand
-            Dim Loc As String = "Online_Store/Online_Store/Products/" & SelectedProductID & "/Product_Images/"
+            Dim Loc As String = """" & "/Products/" & Session("userId") & "/Product_Images/"
 
-            Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=&quot;|DataDirectory|\CarCaptain Autospares.mdf&quot;;Integrated Security=True")
+            Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
 
             Dim CommandString As String
             If txtImageUploadAdd.HasFile Then
-                CommandString = "UPDATE [Products] SET ImgLocation='" & Loc & txtImageUploadAdd.FileName & "', Name='" & txtName.Text & "', Price='" & txtPrice.Text & "',Quantity='" & txtQuantity.Text & "' WHERE P_Id=" & SelectedProductID & ";"
+                CommandString = "UPDATE [Product] SET ImgLocation='" & Loc & txtImageUploadAdd.FileName & """" & "', Name='" & txtName.Text & "', Price='" & txtPrice.Text & "',Quantity='" & txtQuantity.Text & "' WHERE P_Id=" & SelectedProductID & ";"
             Else
-                CommandString = "UPDATE [Products] SET ImgLocation='" & imgLoc & "', Name='" & txtName.Text & "', Price='" & txtPrice.Text & "',Quantity='" & txtQuantity.Text & "' WHERE P_Id=" & SelectedProductID & ";"
+                CommandString = "UPDATE [Product] SET ImgLocation='" & imgLoc & "', Name='" & txtName.Text & "', Price='" & txtPrice.Text & "',Quantity='" & txtQuantity.Text & "' WHERE P_Id=" & SelectedProductID & ";"
             End If
 
 
