@@ -74,8 +74,7 @@ Public Class ShoppingCart
                     Dim Command As SqlCommand
                     Dim Reader As SqlDataReader
                     Dim NewProduct As New PackCart(Value)
-                    Connection = New SqlConnection("Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|WolfPack Auto Spares.mdf;Integrated Security=True")
-
+                    Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
                     Dim CommandString As String
                     CommandString = "Select * FROM Product WHERE P_Id=" & Value & ";"
 
@@ -114,7 +113,7 @@ Public Class ShoppingCart
                                 "<br/>Total price: R" & totaCost & "<br/></p>"
                 Display.Text &= "<a href='RemoveItem.aspx?RemoveID=" & Product.P_Id & "'>Remove Item</a><br/>"
                 Display.Text &= "<a href='UpdateItmQty.aspx?QtyID=" & Product.P_Id & "'>Update Quantity</a></div></div>"
-                totalprice += Product.Price
+                totalprice += totaCost
 
             Next
             Display.Text &= "R" & totalprice & ""
@@ -132,4 +131,6 @@ Public Class ShoppingCart
     Protected Sub AddMore_Click(sender As Object, e As EventArgs) Handles AddMore.Click
         Response.Redirect("ProductList.aspx")
     End Sub
+
+
 End Class

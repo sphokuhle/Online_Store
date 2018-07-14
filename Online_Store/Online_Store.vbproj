@@ -157,6 +157,7 @@
     <Content Include="pricelist.aspx" />
     <Content Include="ProductList.aspx" />
     <Content Include="ProductPage.aspx" />
+    <Content Include="PurchaseRecord.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="RemoveItem.aspx" />
     <Content Include="script\SetVisibility.js" />
@@ -298,6 +299,13 @@
     </Compile>
     <Compile Include="ProductPage.aspx.vb">
       <DependentUpon>ProductPage.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="PurchaseRecord.aspx.designer.vb">
+      <DependentUpon>PurchaseRecord.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PurchaseRecord.aspx.vb">
+      <DependentUpon>PurchaseRecord.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Register.aspx.designer.vb">

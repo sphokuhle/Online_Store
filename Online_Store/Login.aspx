@@ -45,7 +45,7 @@
 
     <asp:Label ID="Label" runat="server"></asp:Label><br /><br />
     <asp:Button ID="Button1" runat="server" Text="Login" Width="69px"></asp:Button><br />
-    <p>Don't have an account?<a href="Registration.aspx"> Register now</a></p>
+    <p>Don't have an account?<a href="Register.aspx"> Register now</a></p>
 
     
 </asp:Content>

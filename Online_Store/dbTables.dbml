@@ -24,8 +24,23 @@
       <Column Name="LongDescription" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
       <Column Name="ImgLocation" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="User_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Product_CustomerInvoice" Member="CustomerInvoices" ThisKey="P_Id" OtherKey="P_Id" Type="CustomerInvoice" />
       <Association Name="Product_InvoiceProduct" Member="InvoiceProducts" ThisKey="P_Id" OtherKey="P_Id" Type="InvoiceProduct" />
       <Association Name="User_Product" Member="User" ThisKey="User_ID" OtherKey="UserId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CustomerInvoice" Member="CustomerInvoices">
+    <Type Name="CustomerInvoice">
+      <Column Name="CustomerInvoiceID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Invoice_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="P_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductQuantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Original_PName" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Original_P_Price" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="BuyingPrice" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="DateEdited" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Product_CustomerInvoice" Member="Product" ThisKey="P_Id" OtherKey="P_Id" Type="Product" IsForeignKey="true" />
+      <Association Name="Invoice_CustomerInvoice" Member="Invoice" ThisKey="Invoice_ID" OtherKey="Invoice_ID" Type="Invoice" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Invoice" Member="Invoices">
@@ -34,7 +49,8 @@
       <Column Name="InvoiceReference" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="InvoiceDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BuyingPrice" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="TotalPrice" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Association Name="Invoice_CustomerInvoice" Member="CustomerInvoices" ThisKey="Invoice_ID" OtherKey="Invoice_ID" Type="CustomerInvoice" />
       <Association Name="Invoice_InvoiceProduct" Member="InvoiceProducts" ThisKey="Invoice_ID" OtherKey="Invoice_ID" Type="InvoiceProduct" />
       <Association Name="User_Invoice" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
     </Type>
@@ -46,7 +62,7 @@
       <Column Name="Quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="P_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ProductQuantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BuyingPrice" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="OriginalPrice" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
       <Association Name="Invoice_InvoiceProduct" Member="Invoice" ThisKey="Invoice_ID" OtherKey="Invoice_ID" Type="Invoice" IsForeignKey="true" />
       <Association Name="Product_InvoiceProduct" Member="Product" ThisKey="P_Id" OtherKey="P_Id" Type="Product" IsForeignKey="true" />
     </Type>

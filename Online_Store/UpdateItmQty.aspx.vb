@@ -16,7 +16,6 @@
                 For Each Prod In ShoppingCartList
                     If Prod.P_Id = id Then
                         Prod.Quantity = txtUpdateQuantity.Text
-
                         Exit For
                     End If
                 Next

@@ -4,6 +4,7 @@ Imports System.Data.SqlClient
 Public Class CheckoutPage
     Inherits System.Web.UI.Page
     Private pro2Remove As Integer
+    Private price As Decimal
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         pro2Remove = CInt(Request.QueryString("P_Id"))
@@ -12,7 +13,6 @@ Public Class CheckoutPage
             ShoppingC = CType(Session("ShoppingCarts"), List(Of PackCart))
 
             If ShoppingC.Count <> 0 Then
-                Dim ShoppingCString As String = ""
 
                 Display.Text &= "<table width='100%'><tr><td>Tel : (011) 245 4478<br/> " &
                                 "Fax : (011) 245 1478 <br/> " &
@@ -31,12 +31,13 @@ Public Class CheckoutPage
                                             "<td>" & Product.Quantity & "</td>" &
                                             "<td>R" & Product.Price & "</td>" &
                                             "<td>Total Price: R" & Product.Product_Total & "</td></tr>"
+                            price = Product.Product_Total
                         Loop
                     End If
                 Next
                 Display.Text &= "</table><p><b>VAT : 14%</b><br/>" &
                                 "<b>Delivery Amount: All deliveries are free </b><br/>" &
-                                "<b>Payment Total: R" & TotalCost(ShoppingC) & "</b></p>"
+                                "<b>Total Payment: R" & TotalCost(ShoppingC) & "</b></p>"
                 Display.Text &= "<br/><br/>"
                 UpdateQuantity(ShoppingC)
                 CreateInvoice(ShoppingC)
@@ -56,7 +57,7 @@ Public Class CheckoutPage
 
         Dim refNumber As String = "REF" & New Random().Next.ToString
         Dim CommandString As String
-        CommandString = "INSERT INTO [Invoice] VALUES('" & refNumber & "','" & DateTime.Now & "','" & Convert.ToInt32(Request.Cookies("UserIDCookie").Value) & "');"
+        CommandString = "INSERT INTO [Invoice] VALUES('" & refNumber & "','" & DateTime.Now & "','" & Convert.ToInt32(Request.Cookies("UserIDCookie").Value) & "','" & price & "');"
 
         Command = New SqlCommand(CommandString)
         Command.CommandType = CommandType.Text
@@ -79,14 +80,28 @@ Public Class CheckoutPage
 
         Command.Connection.Close()
 
+        '********************************
+        Dim db As dbTablesDataContext = New dbTablesDataContext
+        Dim cust_Invoice As CustomerInvoice = New CustomerInvoice()
+
         For Each Product As PackCart In ShoppingC
             Dim insert As New SqlCommand
             insert.CommandType = CommandType.Text
             insert.Connection = Connection
             insert.Connection.Open()
-            insert.CommandText = "INSERT INTO [InvoiceProduct](Invoice_ID, P_Id, ProductQuantity, BuyingPrice) VALUES(" & Convert.ToInt32(InvoiceID) & "," & Product.P_Id & "," & Product.Quantity & "," & Product.Price & ");"
+            insert.CommandText = "INSERT INTO [InvoiceProduct](Invoice_ID, P_Id, ProductQuantity, OriginalPrice) VALUES(" & Convert.ToInt32(InvoiceID) & "," & Product.P_Id & "," & Product.Quantity & "," & Product.Price & ");"
             insert.ExecuteNonQuery()
             insert.Connection.Close()
+            'Storing into [CustomerInvoice] Table invoice details that would not change when the product is updated later
+            cust_Invoice.P_Id = Product.P_Id
+            cust_Invoice.Invoice_ID = Convert.ToInt32(InvoiceID)
+            cust_Invoice.ProductQuantity = Product.Quantity
+            cust_Invoice.Original_PName = Product.Name
+            cust_Invoice.Original_P_Price = Product.Price
+            cust_Invoice.BuyingPrice = Product.Product_Total
+            db.CustomerInvoices.InsertOnSubmit(cust_Invoice)
+            db.SubmitChanges()
+
         Next
 
     End Sub
@@ -99,7 +114,7 @@ Public Class CheckoutPage
             Connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
 
             Dim CommandString As String
-            CommandString = "UPDATE [Product]SET Quantity =" & QuantityInDataBase() - Product.Quantity & " WHERE P_ID ='" & pro2Remove & "';"
+            CommandString = "UPDATE [Product] SET Quantity =" & QuantityInDataBase(Product.P_Id) - Product.Quantity & " WHERE P_ID ='" & Product.P_Id & "';"
             Command = New SqlCommand(CommandString)
             Command.CommandType = CommandType.Text
             Command.Connection = Connection
@@ -112,7 +127,7 @@ Public Class CheckoutPage
     End Sub
 
     '*******************************************************************************************'
-    Private Function QuantityInDataBase() As Integer
+    Private Function QuantityInDataBase(pro2Remove As Integer) As Integer
         Dim Connection As SqlConnection
         Dim Command As SqlCommand
         Dim reader As SqlDataReader
@@ -135,7 +150,6 @@ Public Class CheckoutPage
         End If
         Return QUANT
     End Function
-    '*******************************************************************************************'
 
     Private Function GetProduct(P_Id As Integer) As SqlDataReader
         Dim Connection As SqlConnection

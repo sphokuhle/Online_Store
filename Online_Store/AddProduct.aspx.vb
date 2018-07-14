@@ -48,7 +48,7 @@ Public Class AddProduct
                 Dim fileExtention As String = Path.GetExtension(fileToUpload.FileName)
                 If ((fileExtention.ToLower() = ".jpg") Or (fileExtention.ToLower() = ".png") Or (fileExtention.ToLower() = ".jpeg") And fileSize <= 15728640) Then
                     fileToUpload.SaveAs(SaveLoc) 'saving the image
-                    Return filename  '"Online_Store/Online_Store/Products/" & ID & "/" & subfolder & "/" &
+                    Return filename
                 Else
                     Return "File Chosen Is Not an Image"
                 End If

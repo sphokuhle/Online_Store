@@ -80,20 +80,25 @@
                 <div id="menu">
                    <ul>
                        <li><a href="Home.aspx">HOME</a></li>
-                       <li><a href="NameList.aspx">PRODUCTS</a> 
+                       <li><a href="productlist.aspx">PRODUCTS</a> 
                            <ul>
                                <li><a href="namelist.aspx">List by Name</a></li>
                                <li><a href="pricelist.aspx">List by Price</a></li>
                            </ul>
-
                        </li>
-                       <li><a href="ShoppingCart.aspx">SHOPPING CART</a></li>
-                       <li id="loginId" runat="server"><a href="Login.aspx" onclick="return disappear(this);">LOGIN</a>
+                       <li><a href="ShoppingCart.aspx">SHOPPING CART</a>
+                       <ul>
+                           <li id="idCustomerPage" runat="server"><a href="PurchaseRecord.aspx">INVOICE HISTORY</a></li>
+                           <%--<li id="Li1" runat="server"><a href="InvoiceTest.aspx">INVOICE TEST</a></li>--%>
+                       </ul>
+                       </li>
+                        <li id="loginId" runat="server"><a href="Login.aspx" onclick="return disappear(this);">LOGIN</a>
                             <ul>
                                <li><a href="PasswordReset.aspx">Reset Password</a></li>
                                <li><a href="Register.aspx">Register</a></li>
                            </ul>
                        </li>
+                       
                        <li id="logoutId" runat="server"><a href="Logout.aspx">LOGOUT</a></li>
                        <li><a href="ContactPage.aspx">CONTACT US</a></li>
                    </ul>

@@ -28,22 +28,27 @@ Public Class ProductList
 
         If Reader.HasRows Then
             Do While Reader.Read
-                Display.Text &= "<div class='image-container'><a href='ProductPage.aspx?P_Id=" & Reader("P_Id") & "'><img src=" & Reader("ImgLocation") & "></a> <div class='overlay'><p><hr>" & Reader("Name") & "<br>Price: R" & Reader("Price") & "<br>"
 
-                If (Session("level") = 2) Then
-                    If Not Session("username") Is Nothing Then
-                        Display.Text &= "<a href='EditProduct.aspx?P_Id=" & Reader("P_Id") & "'>Update Product</a><br><a href='DeleteProduct.aspx?P_Id=" & Reader("P_Id") & "'>Delete Product</a>"
-                    End If
-                End If
+                If Reader("Quantity") > 0 Then
+                    Display.Text &= "<div class='image-container'><a href='ProductPage.aspx?P_Id=" & Reader("P_Id") & "'><img src=" & Reader("ImgLocation") & "></a> <div class='overlay'><p><hr>" & Reader("Name") & "<br>Price: R" & Reader("Price") & "<br>"
 
-                If (Session("level") = 1) Then
-                    If Not Session("username") Is Nothing Then
-                        If Reader("Quantity") > 0 Then
-                            Display.Text &= "<a href='ShoppingCart.aspx?P_Id=" & Reader("P_Id") & "'><img src= 'App_Media/cart.png' /></a>"
+                    If (Session("level") = 2) Then
+                        If Not Session("username") Is Nothing Then
+                            Display.Text &= "<a href='EditProduct.aspx?P_Id=" & Reader("P_Id") & "'>Update Product</a><br><a href='DeleteProduct.aspx?P_Id=" & Reader("P_Id") & "'>Delete Product</a>"
                         End If
                     End If
+
+                    If (Session("level") = 1) Then
+                        If Not Session("username") Is Nothing Then
+                            If Reader("Quantity") > 0 Then
+                                Display.Text &= "<a href='ShoppingCart.aspx?P_Id=" & Reader("P_Id") & "'><img src= 'App_Media/cart.png' /></a>"
+
+                            End If
+                        End If
+                    End If
+                    Display.Text &= "</p></div></div>"
                 End If
-                Display.Text &= "</p></div></div>"
+
             Loop
         End If
 
@@ -55,5 +60,6 @@ Public Class ProductList
             End If
         End If
     End Sub
+
 
 End Class

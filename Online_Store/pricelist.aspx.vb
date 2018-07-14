@@ -30,20 +30,21 @@ Public Class pricelist
 
             If Reader.HasRows Then
                 Do While Reader.Read
-                    Display.Text &= "<div class='image-container'><a href='ProductPage.aspx?P_Id=" & Reader("P_Id") & "'><img src=" & Reader("ImgLocation") & "></a> <div class='overlay'><p><hr>" & Reader("Name") & "<br>Price: R" & Reader("Price") & "<br>"
+                    If Reader("Quantity") > 0 Then
+                        Display.Text &= "<div class='image-container'><a href='ProductPage.aspx?P_Id=" & Reader("P_Id") & "'><img src=" & Reader("ImgLocation") & "></a> <div class='overlay'><p><hr>" & Reader("Name") & "<br>Price: R" & Reader("Price") & "<br>"
 
-                    If (Session("Level") = 2) Then
-                        Display.Text &= "<a href='EditProduct.aspx?ProductID=" & Reader("P_Id") & "'>Update Product</a><br><a href='DeleteProduct.aspx?P_Id=" & Reader("P_Id") & "'>Delete Product</a>"
-                    End If
+                        If (Session("Level") = 2) Then
+                            Display.Text &= "<a href='EditProduct.aspx?ProductID=" & Reader("P_Id") & "'>Update Product</a><br><a href='DeleteProduct.aspx?P_Id=" & Reader("P_Id") & "'>Delete Product</a>"
+                        End If
 
-                    If (Session("Level") = 1) Then
-                        If Not Session("username") Is Nothing Then
-                            If Reader("Quantity") > 0 Then
+                        If (Session("Level") = 1) Then
+                            If Not Session("username") Is Nothing Then
                                 Display.Text &= "<a href='ShoppingCartPage.aspx?P_Id=" & Reader("P_Id") & "'>Add to Cart</a>"
                             End If
                         End If
+                        Display.Text &= "</p></div></div>"
                     End If
-                    Display.Text &= "</p></div></div>"
+
                 Loop
             End If
 

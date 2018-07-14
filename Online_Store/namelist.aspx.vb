@@ -30,20 +30,22 @@ Public Class namelist
 
             If Reader.HasRows Then
                 Do While Reader.Read
-                    Display.Text &= "<div class='image-container'><a href='ProductPage.aspx?ProductID=" & Reader("P_Id") & "'><img src=" & Reader("ImgLocation") & "></a> <div class='overlay'><p><hr>" & Reader("Name") & "<br>Price: R" & Reader("Price") & "<br>"
+                    If Reader("Quantity") > 0 Then
+                        Display.Text &= "<div class='image-container'><a href='ProductPage.aspx?ProductID=" & Reader("P_Id") & "'><img src=" & Reader("ImgLocation") & "></a> <div class='overlay'><p><hr>" & Reader("Name") & "<br>Price: R" & Reader("Price") & "<br>"
 
-                    If (Session("level") = 2) Then
-                        Display.Text &= "<a href='EditProduct.aspx?P_Id=" & Reader("P_Id") & "'>Update Product</a><br><a href='DeleteProduct.aspx?P_Id=" & Reader("P_Id") & "'>Delete Product</a>"
-                    End If
+                        If (Session("level") = 2) Then
+                            Display.Text &= "<a href='EditProduct.aspx?P_Id=" & Reader("P_Id") & "'>Update Product</a><br><a href='DeleteProduct.aspx?P_Id=" & Reader("P_Id") & "'>Delete Product</a>"
+                        End If
 
-                    If (Session("level") = 1) Then
-                        If Not Session("username") Is Nothing Then
-                            If Reader("Quantity") > 0 Then
-                                Display.Text &= "<a href='ShoppingCart.aspx?P_Id=" & Reader("P_Id") & "'>Add to Cart</a>"
+                        If (Session("level") = 1) Then
+                            If Not Session("username") Is Nothing Then
+                                If Reader("Quantity") > 0 Then
+                                    Display.Text &= "<a href='ShoppingCart.aspx?P_Id=" & Reader("P_Id") & "'>Add to Cart</a>"
+                                End If
                             End If
                         End If
+                        Display.Text &= "</p></div></div>"
                     End If
-                    Display.Text &= "</p></div></div>"
                 Loop
             End If
 

@@ -18,7 +18,7 @@ Public Class Login
         connection = New SqlConnection("Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\CarCaptain Autospares.mdf;Integrated Security=True")
 
         Dim commandstring As String
-        commandstring = "SELECT * FROM [User] WHERE username ='" & tempusername & "';"
+        commandstring = "SELECT * FROM [User] WHERE username ='" & tempusername & "' OR Email = '" & tempusername & "';"
         command = New SqlCommand(commandstring)
         command.CommandType = CommandType.Text
         command.Connection = connection

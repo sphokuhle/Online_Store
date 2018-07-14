@@ -2,10 +2,10 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="dbTables">
   <DataContextMoniker Name="/dbTablesDataContext" />
   <nestedChildShapes>
-    <classShape Id="1c1c144e-3cb9-493f-a3da-e905ef9eff05" absoluteBounds="1.875, 1.75, 2, 2.3478011067708335">
+    <classShape Id="1c1c144e-3cb9-493f-a3da-e905ef9eff05" absoluteBounds="1.625, 1.75, 2, 2.3478011067708335">
       <DataClassMoniker Name="/dbTablesDataContext/User" />
       <nestedChildShapes>
-        <elementListCompartment Id="0e1a159f-b986-47ed-9f54-35520eeb0e74" absoluteBounds="1.8900000000000001, 2.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="0e1a159f-b986-47ed-9f54-35520eeb0e74" absoluteBounds="1.6400000000000001, 2.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="ce484ce5-3bec-4635-9d5d-7438faa38646" absoluteBounds="5, 1.75, 2, 2.3478011067708335">
@@ -14,44 +14,64 @@
         <elementListCompartment Id="268dab25-ac83-4196-90f9-c8daef8b5df5" absoluteBounds="5.015, 2.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.875 : 2.92390055338542); (5 : 2.92390055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.625 : 2.92390055338542); (5 : 2.92390055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/dbTablesDataContext/User/User_Product" />
       <nodes>
         <classShapeMoniker Id="1c1c144e-3cb9-493f-a3da-e905ef9eff05" />
         <classShapeMoniker Id="ce484ce5-3bec-4635-9d5d-7438faa38646" />
       </nodes>
     </associationConnector>
-    <classShape Id="50533634-073e-4ecb-acfa-d4fe963e1cc4" absoluteBounds="2, 4.875, 2, 1.7708968098958331">
-      <DataClassMoniker Name="/dbTablesDataContext/Invoice" />
+    <classShape Id="71a3014e-c104-4f88-94ee-0a1f2f6f401d" absoluteBounds="8.125, 4.75, 2, 2.3478011067708335">
+      <DataClassMoniker Name="/dbTablesDataContext/CustomerInvoice" />
       <nestedChildShapes>
-        <elementListCompartment Id="98e3355b-4845-4b52-ace4-b2894361df42" absoluteBounds="2.0150000000000006, 5.335, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="161de8f0-9ea6-485a-872c-d740b17102fd" absoluteBounds="8.14, 5.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.9375 : 4.09780110677083); (2.9375 : 4.875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(6.84375 : 4.09780110677083); (6.84375 : 4.84375); (8.125 : 4.84375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbTablesDataContext/Product/Product_CustomerInvoice" />
+      <nodes>
+        <classShapeMoniker Id="ce484ce5-3bec-4635-9d5d-7438faa38646" />
+        <classShapeMoniker Id="71a3014e-c104-4f88-94ee-0a1f2f6f401d" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="3726d42f-eeb3-4c3c-849b-0ee4338f6045" absoluteBounds="1.5, 5.375, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/dbTablesDataContext/Invoice" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a4c040cd-9289-425a-87dc-535207326b74" absoluteBounds="1.5150000000000001, 5.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.5 : 7.06174967447917); (8.125 : 7.06174967447917)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/dbTablesDataContext/Invoice/Invoice_CustomerInvoice" />
+      <nodes>
+        <classShapeMoniker Id="3726d42f-eeb3-4c3c-849b-0ee4338f6045" />
+        <classShapeMoniker Id="71a3014e-c104-4f88-94ee-0a1f2f6f401d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.5625 : 4.09780110677083); (2.5625 : 5.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/dbTablesDataContext/User/User_Invoice" />
       <nodes>
         <classShapeMoniker Id="1c1c144e-3cb9-493f-a3da-e905ef9eff05" />
-        <classShapeMoniker Id="50533634-073e-4ecb-acfa-d4fe963e1cc4" />
+        <classShapeMoniker Id="3726d42f-eeb3-4c3c-849b-0ee4338f6045" />
       </nodes>
     </associationConnector>
-    <classShape Id="a3575f2e-e0ab-4b42-a5e0-a45e398b9a81" absoluteBounds="4.875, 4.75, 2, 1.9631982421875">
+    <classShape Id="ddee6a49-a2c6-494f-9d8f-2f66efea427b" absoluteBounds="4.625, 5, 2, 1.9631982421875">
       <DataClassMoniker Name="/dbTablesDataContext/InvoiceProduct" />
       <nestedChildShapes>
-        <elementListCompartment Id="38d276af-1bde-4e75-80c6-754f6b35ecaa" absoluteBounds="4.89, 5.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="78cf0c37-7625-48ba-8f16-40b88dd726e4" absoluteBounds="4.64, 5.46, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4 : 5.76044840494792); (4.875 : 5.76044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(3.5 : 6.16909912109375); (4.625 : 6.16909912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/dbTablesDataContext/Invoice/Invoice_InvoiceProduct" />
       <nodes>
-        <classShapeMoniker Id="50533634-073e-4ecb-acfa-d4fe963e1cc4" />
-        <classShapeMoniker Id="a3575f2e-e0ab-4b42-a5e0-a45e398b9a81" />
+        <classShapeMoniker Id="3726d42f-eeb3-4c3c-849b-0ee4338f6045" />
+        <classShapeMoniker Id="ddee6a49-a2c6-494f-9d8f-2f66efea427b" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.9375 : 4.09780110677083); (5.9375 : 4.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.8125 : 4.09780110677083); (5.8125 : 5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/dbTablesDataContext/Product/Product_InvoiceProduct" />
       <nodes>
         <classShapeMoniker Id="ce484ce5-3bec-4635-9d5d-7438faa38646" />
-        <classShapeMoniker Id="a3575f2e-e0ab-4b42-a5e0-a45e398b9a81" />
+        <classShapeMoniker Id="ddee6a49-a2c6-494f-9d8f-2f66efea427b" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

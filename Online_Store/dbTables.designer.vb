@@ -43,6 +43,12 @@ Partial Public Class dbTablesDataContext
     End Sub
   Partial Private Sub DeleteProduct(instance As Product)
     End Sub
+  Partial Private Sub InsertCustomerInvoice(instance As CustomerInvoice)
+    End Sub
+  Partial Private Sub UpdateCustomerInvoice(instance As CustomerInvoice)
+    End Sub
+  Partial Private Sub DeleteCustomerInvoice(instance As CustomerInvoice)
+    End Sub
   Partial Private Sub InsertInvoice(instance As Invoice)
     End Sub
   Partial Private Sub UpdateInvoice(instance As Invoice)
@@ -91,6 +97,12 @@ Partial Public Class dbTablesDataContext
 	Public ReadOnly Property Products() As System.Data.Linq.Table(Of Product)
 		Get
 			Return Me.GetTable(Of Product)
+		End Get
+	End Property
+	
+	Public ReadOnly Property CustomerInvoices() As System.Data.Linq.Table(Of CustomerInvoice)
+		Get
+			Return Me.GetTable(Of CustomerInvoice)
 		End Get
 	End Property
 	
@@ -391,6 +403,8 @@ Partial Public Class Product
 	
 	Private _User_ID As Integer
 	
+	Private _CustomerInvoices As EntitySet(Of CustomerInvoice)
+	
 	Private _InvoiceProducts As EntitySet(Of InvoiceProduct)
 	
 	Private _User As EntityRef(Of User)
@@ -438,6 +452,7 @@ Partial Public Class Product
 	
 	Public Sub New()
 		MyBase.New
+		Me._CustomerInvoices = New EntitySet(Of CustomerInvoice)(AddressOf Me.attach_CustomerInvoices, AddressOf Me.detach_CustomerInvoices)
 		Me._InvoiceProducts = New EntitySet(Of InvoiceProduct)(AddressOf Me.attach_InvoiceProducts, AddressOf Me.detach_InvoiceProducts)
 		Me._User = CType(Nothing, EntityRef(Of User))
 		OnCreated
@@ -577,6 +592,16 @@ Partial Public Class Product
 		End Set
 	End Property
 	
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="Product_CustomerInvoice", Storage:="_CustomerInvoices", ThisKey:="P_Id", OtherKey:="P_Id")>  _
+	Public Property CustomerInvoices() As EntitySet(Of CustomerInvoice)
+		Get
+			Return Me._CustomerInvoices
+		End Get
+		Set
+			Me._CustomerInvoices.Assign(value)
+		End Set
+	End Property
+	
 	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="Product_InvoiceProduct", Storage:="_InvoiceProducts", ThisKey:="P_Id", OtherKey:="P_Id")>  _
 	Public Property InvoiceProducts() As EntitySet(Of InvoiceProduct)
 		Get
@@ -633,6 +658,16 @@ Partial Public Class Product
 		End If
 	End Sub
 	
+	Private Sub attach_CustomerInvoices(ByVal entity As CustomerInvoice)
+		Me.SendPropertyChanging
+		entity.Product = Me
+	End Sub
+	
+	Private Sub detach_CustomerInvoices(ByVal entity As CustomerInvoice)
+		Me.SendPropertyChanging
+		entity.Product = Nothing
+	End Sub
+	
 	Private Sub attach_InvoiceProducts(ByVal entity As InvoiceProduct)
 		Me.SendPropertyChanging
 		entity.Product = Me
@@ -641,6 +676,290 @@ Partial Public Class Product
 	Private Sub detach_InvoiceProducts(ByVal entity As InvoiceProduct)
 		Me.SendPropertyChanging
 		entity.Product = Nothing
+	End Sub
+End Class
+
+<Global.System.Data.Linq.Mapping.TableAttribute(Name:="dbo.CustomerInvoice")>  _
+Partial Public Class CustomerInvoice
+	Implements System.ComponentModel.INotifyPropertyChanging, System.ComponentModel.INotifyPropertyChanged
+	
+	Private Shared emptyChangingEventArgs As PropertyChangingEventArgs = New PropertyChangingEventArgs(String.Empty)
+	
+	Private _CustomerInvoiceID As Integer
+	
+	Private _Invoice_ID As System.Nullable(Of Integer)
+	
+	Private _P_Id As System.Nullable(Of Integer)
+	
+	Private _ProductQuantity As System.Nullable(Of Integer)
+	
+	Private _Original_PName As String
+	
+	Private _Original_P_Price As System.Nullable(Of Decimal)
+	
+	Private _BuyingPrice As System.Nullable(Of Decimal)
+	
+	Private _DateEdited As System.Nullable(Of Date)
+	
+	Private _Product As EntityRef(Of Product)
+	
+	Private _Invoice As EntityRef(Of Invoice)
+	
+    #Region "Extensibility Method Definitions"
+    Partial Private Sub OnLoaded()
+    End Sub
+    Partial Private Sub OnValidate(action As System.Data.Linq.ChangeAction)
+    End Sub
+    Partial Private Sub OnCreated()
+    End Sub
+    Partial Private Sub OnCustomerInvoiceIDChanging(value As Integer)
+    End Sub
+    Partial Private Sub OnCustomerInvoiceIDChanged()
+    End Sub
+    Partial Private Sub OnInvoice_IDChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnInvoice_IDChanged()
+    End Sub
+    Partial Private Sub OnP_IdChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnP_IdChanged()
+    End Sub
+    Partial Private Sub OnProductQuantityChanging(value As System.Nullable(Of Integer))
+    End Sub
+    Partial Private Sub OnProductQuantityChanged()
+    End Sub
+    Partial Private Sub OnOriginal_PNameChanging(value As String)
+    End Sub
+    Partial Private Sub OnOriginal_PNameChanged()
+    End Sub
+    Partial Private Sub OnOriginal_P_PriceChanging(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnOriginal_P_PriceChanged()
+    End Sub
+    Partial Private Sub OnBuyingPriceChanging(value As System.Nullable(Of Decimal))
+    End Sub
+    Partial Private Sub OnBuyingPriceChanged()
+    End Sub
+    Partial Private Sub OnDateEditedChanging(value As System.Nullable(Of Date))
+    End Sub
+    Partial Private Sub OnDateEditedChanged()
+    End Sub
+    #End Region
+	
+	Public Sub New()
+		MyBase.New
+		Me._Product = CType(Nothing, EntityRef(Of Product))
+		Me._Invoice = CType(Nothing, EntityRef(Of Invoice))
+		OnCreated
+	End Sub
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_CustomerInvoiceID", AutoSync:=AutoSync.OnInsert, DbType:="Int NOT NULL IDENTITY", IsPrimaryKey:=true, IsDbGenerated:=true)>  _
+	Public Property CustomerInvoiceID() As Integer
+		Get
+			Return Me._CustomerInvoiceID
+		End Get
+		Set
+			If ((Me._CustomerInvoiceID = value)  _
+						= false) Then
+				Me.OnCustomerInvoiceIDChanging(value)
+				Me.SendPropertyChanging
+				Me._CustomerInvoiceID = value
+				Me.SendPropertyChanged("CustomerInvoiceID")
+				Me.OnCustomerInvoiceIDChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Invoice_ID", DbType:="Int")>  _
+	Public Property Invoice_ID() As System.Nullable(Of Integer)
+		Get
+			Return Me._Invoice_ID
+		End Get
+		Set
+			If (Me._Invoice_ID.Equals(value) = false) Then
+				If Me._Invoice.HasLoadedOrAssignedValue Then
+					Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+				End If
+				Me.OnInvoice_IDChanging(value)
+				Me.SendPropertyChanging
+				Me._Invoice_ID = value
+				Me.SendPropertyChanged("Invoice_ID")
+				Me.OnInvoice_IDChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_P_Id", DbType:="Int")>  _
+	Public Property P_Id() As System.Nullable(Of Integer)
+		Get
+			Return Me._P_Id
+		End Get
+		Set
+			If (Me._P_Id.Equals(value) = false) Then
+				If Me._Product.HasLoadedOrAssignedValue Then
+					Throw New System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException()
+				End If
+				Me.OnP_IdChanging(value)
+				Me.SendPropertyChanging
+				Me._P_Id = value
+				Me.SendPropertyChanged("P_Id")
+				Me.OnP_IdChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_ProductQuantity", DbType:="Int")>  _
+	Public Property ProductQuantity() As System.Nullable(Of Integer)
+		Get
+			Return Me._ProductQuantity
+		End Get
+		Set
+			If (Me._ProductQuantity.Equals(value) = false) Then
+				Me.OnProductQuantityChanging(value)
+				Me.SendPropertyChanging
+				Me._ProductQuantity = value
+				Me.SendPropertyChanged("ProductQuantity")
+				Me.OnProductQuantityChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Original_PName", DbType:="VarChar(50) NOT NULL", CanBeNull:=false)>  _
+	Public Property Original_PName() As String
+		Get
+			Return Me._Original_PName
+		End Get
+		Set
+			If (String.Equals(Me._Original_PName, value) = false) Then
+				Me.OnOriginal_PNameChanging(value)
+				Me.SendPropertyChanging
+				Me._Original_PName = value
+				Me.SendPropertyChanged("Original_PName")
+				Me.OnOriginal_PNameChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_Original_P_Price", DbType:="Decimal(18,2)")>  _
+	Public Property Original_P_Price() As System.Nullable(Of Decimal)
+		Get
+			Return Me._Original_P_Price
+		End Get
+		Set
+			If (Me._Original_P_Price.Equals(value) = false) Then
+				Me.OnOriginal_P_PriceChanging(value)
+				Me.SendPropertyChanging
+				Me._Original_P_Price = value
+				Me.SendPropertyChanged("Original_P_Price")
+				Me.OnOriginal_P_PriceChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BuyingPrice", DbType:="Decimal(18,2)")>  _
+	Public Property BuyingPrice() As System.Nullable(Of Decimal)
+		Get
+			Return Me._BuyingPrice
+		End Get
+		Set
+			If (Me._BuyingPrice.Equals(value) = false) Then
+				Me.OnBuyingPriceChanging(value)
+				Me.SendPropertyChanging
+				Me._BuyingPrice = value
+				Me.SendPropertyChanged("BuyingPrice")
+				Me.OnBuyingPriceChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_DateEdited", DbType:="DateTime")>  _
+	Public Property DateEdited() As System.Nullable(Of Date)
+		Get
+			Return Me._DateEdited
+		End Get
+		Set
+			If (Me._DateEdited.Equals(value) = false) Then
+				Me.OnDateEditedChanging(value)
+				Me.SendPropertyChanging
+				Me._DateEdited = value
+				Me.SendPropertyChanged("DateEdited")
+				Me.OnDateEditedChanged
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="Product_CustomerInvoice", Storage:="_Product", ThisKey:="P_Id", OtherKey:="P_Id", IsForeignKey:=true)>  _
+	Public Property Product() As Product
+		Get
+			Return Me._Product.Entity
+		End Get
+		Set
+			Dim previousValue As Product = Me._Product.Entity
+			If ((Object.Equals(previousValue, value) = false)  _
+						OrElse (Me._Product.HasLoadedOrAssignedValue = false)) Then
+				Me.SendPropertyChanging
+				If ((previousValue Is Nothing)  _
+							= false) Then
+					Me._Product.Entity = Nothing
+					previousValue.CustomerInvoices.Remove(Me)
+				End If
+				Me._Product.Entity = value
+				If ((value Is Nothing)  _
+							= false) Then
+					value.CustomerInvoices.Add(Me)
+					Me._P_Id = value.P_Id
+				Else
+					Me._P_Id = CType(Nothing, Nullable(Of Integer))
+				End If
+				Me.SendPropertyChanged("Product")
+			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="Invoice_CustomerInvoice", Storage:="_Invoice", ThisKey:="Invoice_ID", OtherKey:="Invoice_ID", IsForeignKey:=true)>  _
+	Public Property Invoice() As Invoice
+		Get
+			Return Me._Invoice.Entity
+		End Get
+		Set
+			Dim previousValue As Invoice = Me._Invoice.Entity
+			If ((Object.Equals(previousValue, value) = false)  _
+						OrElse (Me._Invoice.HasLoadedOrAssignedValue = false)) Then
+				Me.SendPropertyChanging
+				If ((previousValue Is Nothing)  _
+							= false) Then
+					Me._Invoice.Entity = Nothing
+					previousValue.CustomerInvoices.Remove(Me)
+				End If
+				Me._Invoice.Entity = value
+				If ((value Is Nothing)  _
+							= false) Then
+					value.CustomerInvoices.Add(Me)
+					Me._Invoice_ID = value.Invoice_ID
+				Else
+					Me._Invoice_ID = CType(Nothing, Nullable(Of Integer))
+				End If
+				Me.SendPropertyChanged("Invoice")
+			End If
+		End Set
+	End Property
+	
+	Public Event PropertyChanging As PropertyChangingEventHandler Implements System.ComponentModel.INotifyPropertyChanging.PropertyChanging
+	
+	Public Event PropertyChanged As PropertyChangedEventHandler Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+	
+	Protected Overridable Sub SendPropertyChanging()
+		If ((Me.PropertyChangingEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanging(Me, emptyChangingEventArgs)
+		End If
+	End Sub
+	
+	Protected Overridable Sub SendPropertyChanged(ByVal propertyName As [String])
+		If ((Me.PropertyChangedEvent Is Nothing)  _
+					= false) Then
+			RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+		End If
 	End Sub
 End Class
 
@@ -658,7 +977,9 @@ Partial Public Class Invoice
 	
 	Private _UserId As System.Nullable(Of Integer)
 	
-	Private _BuyingPrice As System.Nullable(Of Decimal)
+	Private _TotalPrice As System.Nullable(Of Decimal)
+	
+	Private _CustomerInvoices As EntitySet(Of CustomerInvoice)
 	
 	Private _InvoiceProducts As EntitySet(Of InvoiceProduct)
 	
@@ -687,14 +1008,15 @@ Partial Public Class Invoice
     End Sub
     Partial Private Sub OnUserIdChanged()
     End Sub
-    Partial Private Sub OnBuyingPriceChanging(value As System.Nullable(Of Decimal))
+    Partial Private Sub OnTotalPriceChanging(value As System.Nullable(Of Decimal))
     End Sub
-    Partial Private Sub OnBuyingPriceChanged()
+    Partial Private Sub OnTotalPriceChanged()
     End Sub
     #End Region
 	
 	Public Sub New()
 		MyBase.New
+		Me._CustomerInvoices = New EntitySet(Of CustomerInvoice)(AddressOf Me.attach_CustomerInvoices, AddressOf Me.detach_CustomerInvoices)
 		Me._InvoiceProducts = New EntitySet(Of InvoiceProduct)(AddressOf Me.attach_InvoiceProducts, AddressOf Me.detach_InvoiceProducts)
 		Me._User = CType(Nothing, EntityRef(Of User))
 		OnCreated
@@ -768,19 +1090,29 @@ Partial Public Class Invoice
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BuyingPrice", DbType:="Decimal(18,2)")>  _
-	Public Property BuyingPrice() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_TotalPrice", DbType:="Decimal(18,2)")>  _
+	Public Property TotalPrice() As System.Nullable(Of Decimal)
 		Get
-			Return Me._BuyingPrice
+			Return Me._TotalPrice
 		End Get
 		Set
-			If (Me._BuyingPrice.Equals(value) = false) Then
-				Me.OnBuyingPriceChanging(value)
+			If (Me._TotalPrice.Equals(value) = false) Then
+				Me.OnTotalPriceChanging(value)
 				Me.SendPropertyChanging
-				Me._BuyingPrice = value
-				Me.SendPropertyChanged("BuyingPrice")
-				Me.OnBuyingPriceChanged
+				Me._TotalPrice = value
+				Me.SendPropertyChanged("TotalPrice")
+				Me.OnTotalPriceChanged
 			End If
+		End Set
+	End Property
+	
+	<Global.System.Data.Linq.Mapping.AssociationAttribute(Name:="Invoice_CustomerInvoice", Storage:="_CustomerInvoices", ThisKey:="Invoice_ID", OtherKey:="Invoice_ID")>  _
+	Public Property CustomerInvoices() As EntitySet(Of CustomerInvoice)
+		Get
+			Return Me._CustomerInvoices
+		End Get
+		Set
+			Me._CustomerInvoices.Assign(value)
 		End Set
 	End Property
 	
@@ -840,6 +1172,16 @@ Partial Public Class Invoice
 		End If
 	End Sub
 	
+	Private Sub attach_CustomerInvoices(ByVal entity As CustomerInvoice)
+		Me.SendPropertyChanging
+		entity.Invoice = Me
+	End Sub
+	
+	Private Sub detach_CustomerInvoices(ByVal entity As CustomerInvoice)
+		Me.SendPropertyChanging
+		entity.Invoice = Nothing
+	End Sub
+	
 	Private Sub attach_InvoiceProducts(ByVal entity As InvoiceProduct)
 		Me.SendPropertyChanging
 		entity.Invoice = Me
@@ -867,7 +1209,7 @@ Partial Public Class InvoiceProduct
 	
 	Private _ProductQuantity As System.Nullable(Of Integer)
 	
-	Private _BuyingPrice As System.Nullable(Of Decimal)
+	Private _OriginalPrice As System.Nullable(Of Decimal)
 	
 	Private _Invoice As EntityRef(Of Invoice)
 	
@@ -900,9 +1242,9 @@ Partial Public Class InvoiceProduct
     End Sub
     Partial Private Sub OnProductQuantityChanged()
     End Sub
-    Partial Private Sub OnBuyingPriceChanging(value As System.Nullable(Of Decimal))
+    Partial Private Sub OnOriginalPriceChanging(value As System.Nullable(Of Decimal))
     End Sub
-    Partial Private Sub OnBuyingPriceChanged()
+    Partial Private Sub OnOriginalPriceChanged()
     End Sub
     #End Region
 	
@@ -1000,18 +1342,18 @@ Partial Public Class InvoiceProduct
 		End Set
 	End Property
 	
-	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_BuyingPrice", DbType:="Decimal(18,2)")>  _
-	Public Property BuyingPrice() As System.Nullable(Of Decimal)
+	<Global.System.Data.Linq.Mapping.ColumnAttribute(Storage:="_OriginalPrice", DbType:="Decimal(18,2)")>  _
+	Public Property OriginalPrice() As System.Nullable(Of Decimal)
 		Get
-			Return Me._BuyingPrice
+			Return Me._OriginalPrice
 		End Get
 		Set
-			If (Me._BuyingPrice.Equals(value) = false) Then
-				Me.OnBuyingPriceChanging(value)
+			If (Me._OriginalPrice.Equals(value) = false) Then
+				Me.OnOriginalPriceChanging(value)
 				Me.SendPropertyChanging
-				Me._BuyingPrice = value
-				Me.SendPropertyChanged("BuyingPrice")
-				Me.OnBuyingPriceChanged
+				Me._OriginalPrice = value
+				Me.SendPropertyChanged("OriginalPrice")
+				Me.OnOriginalPriceChanged
 			End If
 		End Set
 	End Property
